@@ -55,7 +55,7 @@ def create_app(script_info=None):
     # set up extensions
     elastic_apm.init_app(app)
 
-    value_schema = avro.load("avro/peoplecounterdata.avsc")
+    value_schema = avro.load("avro/vehiclecharging.avsc")
     avroProducer = AvroProducer(
         {
             "bootstrap.servers": app.config["KAFKA_BROKERS"],
@@ -75,22 +75,19 @@ def create_app(script_info=None):
     @app.shell_context_processor
     def ctx():
         return {"app": app}
-    
+
     @app.route("/")
     def hello_world():
         return jsonify(health="ok")
 
-    @app.route('/peoplecounter/v1/', methods=['POST'])
-    def post_peoplecounter_data():
+    @app.route('/vehiclecharge/v1/', methods=['POST'])
+    def post_vehiclecharge_data():
         try:
             data = request.get_data()
-            logging.debug(f"post observation: {data}")
-            data_dict = xmltodict.parse(data, xml_attribs=False)
-            ip = data_dict["EventNotificationAlert"]["ipAddress"]
-            channel = data_dict["EventNotificationAlert"]["channelName"].replace(" ", "_")
-            topic_prefix = "finest.peoplecounter"
-            topic = f"{topic_prefix}.{ip}.{channel}"
-            kafka_avro_produce(avroProducer, topic, data_dict)
+            logging.info(f"post observation: {data}")
+
+            # topic =
+            # kafka_avro_produce(avroProducer, topic, data_dict)
             return success_response_object,success_code
 
         except Exception as e:

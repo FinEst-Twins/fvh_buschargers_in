@@ -2,18 +2,17 @@ version: '3'
 
 services:
 
-  peoplecounter_in_api:
-    build: 
+  charging_in_api:
+    build:
         context: ./platform_in/
         dockerfile: Dockerfile.prod
-    entrypoint: ['/project/entrypoint.sh']
     command: gunicorn --bind 0.0.0.0:5002 manage:app
     volumes:
       - ./platform_in/:/project/
     expose:
       - 5002
     env_file:
-      - var.env
+      - app_config.env
     environment:
       - FLASK_APP=app/__init__.py
       - FLASK_ENV=production
@@ -24,4 +23,4 @@ services:
     ports:
       - 1337:80
     depends_on:
-      - peoplecounter_in_api
+      - charging_in_api

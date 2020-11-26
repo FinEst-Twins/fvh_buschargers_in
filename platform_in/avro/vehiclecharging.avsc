@@ -1,0 +1,6 @@
+{
+    "name": "vehiclechargindata",
+    "type": "record",
+    "namespace": "fvh.vehiclecharging.avro",
+    "fields": []
+}

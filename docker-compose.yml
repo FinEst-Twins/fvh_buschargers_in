@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  peoplecounter_in_api:
+  charging_in_api:
     build: ./platform_in/
     command: python manage.py run -h 0.0.0.0
     volumes:
@@ -14,6 +14,6 @@ services:
     environment:
       - FLASK_APP=app/__init__.py
       - FLASK_ENV=development
-      - APP_SETTINGS=app.config.DevelopmentConfig  
+      - APP_SETTINGS=app.config.DevelopmentConfig
 
-    
+
