@@ -1,0 +1,123 @@
+{
+    "name": "peoplecounterdata",
+    "type": "record",
+    "namespace": "fvh.peoplecounter.avro",
+    "fields": [
+        {
+            "name": "EventNotificationAlert",
+            "type": {
+                "name": "EventNotificationAlert",
+                "type": "record",
+                "fields": [
+                    {
+                        "name": "ipAddress",
+                        "type": "string"
+                    },
+                    {
+                        "name": "protocolType",
+                        "type": "string"
+                    },
+                    {
+                        "name": "macAddress",
+                        "type": "string"
+                    },
+                    {
+                        "name": "channelID",
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateTime",
+                        "type": "string"
+                    },
+                    {
+                        "name": "activePostCount",
+                        "type": "string"
+                    },
+                    {
+                        "name": "eventType",
+                        "type": "string"
+                    },
+                    {
+                        "name": "eventState",
+                        "type": "string"
+                    },
+                    {
+                        "name": "eventDescription",
+                        "type": "string"
+                    },
+                    {
+                        "name": "channelName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "peopleCounting",
+                        "type": {
+                            "name": "peopleCounting",
+                            "type": "record",
+                            "fields": [
+                                {
+                                    "name": "statisticalMethods",
+                                    "type": [
+                                        "null",
+                                        "string"
+                                    ],
+                                    "default": ""
+                                },
+                                {
+                                    "name": "TimeRange",
+                                    "default": null,
+                                    "type": [
+                                        "null",
+                                        {
+                                            "name": "TimeRange",
+                                            "type": "record",
+                                            "fields": [
+                                                {
+                                                    "name": "startTime",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "name": "endTime",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "RealTime",
+                                    "default": null,
+                                    "type": [
+                                        "null",
+                                        {
+                                            "name": "RealTime",
+                                            "type": "record",
+                                            "fields": [
+                                                {
+                                                    "name": "time",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "enter",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "exit",
+                                    "type": "string"
+                                },
+                                {
+                                    "name": "pass",
+                                    "type": "string"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
