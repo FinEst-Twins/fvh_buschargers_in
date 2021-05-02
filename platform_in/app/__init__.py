@@ -97,7 +97,7 @@ def create_app(script_info=None):
     def post_vehiclecharge_data():
         try:
             data = request.get_data()
-            logging.info(f"post observation: {data}")
+            #logging.info(f"post observation: {data}")
 
             # topic =
             # kafka_avro_produce(avroProducer, topic, data_dict)
