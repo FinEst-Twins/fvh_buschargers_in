@@ -98,7 +98,7 @@ def create_app(script_info=None):
         try:
             #data = request.get_data()
             data = request.get_json()
-            #logging.info(f"post observation: {data}")
+            logging.info(f"post observation: {data}")
 
             # topic =
             # kafka_avro_produce(avroProducer, topic, data_dict)
