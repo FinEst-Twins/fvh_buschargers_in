@@ -96,7 +96,8 @@ def create_app(script_info=None):
     @app.route("/ocpp/v16/observations", methods=["POST"])
     def post_vehiclecharge_data():
         try:
-            data = request.get_data()
+            #data = request.get_data()
+            data = request.get_json()
             #logging.info(f"post observation: {data}")
 
             # topic =
