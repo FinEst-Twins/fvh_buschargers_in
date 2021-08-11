@@ -7,7 +7,7 @@ services:
         context: ./platform_in/
         dockerfile: Dockerfile.prod
     command: gunicorn --bind 0.0.0.0:5002 manage:app
-    restart: always
+    #restart: no
     #volumes:
     #  - ./platform_in/:/project/
     expose:
@@ -18,6 +18,10 @@ services:
       - FLASK_APP=app/__init__.py
       - FLASK_ENV=production
       - APP_SETTINGS=app.config.ProductionConfig
+      - ca=chain.pem
+      - cert=service.cert
+      - key=service.key
+      - LOG_LEVEL=2
 
   nginx:
     build: ./nginx

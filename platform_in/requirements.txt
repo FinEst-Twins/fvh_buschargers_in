@@ -1,9 +1,7 @@
 
 wheel
-avro-python3==1.9.1
-confluent-kafka==1.3.0
+kafka-python
 requests
-confluent-kafka[avro,jsonschema,protobuf]
 elastic-apm
 Flask
 Flask-RESTful
@@ -12,5 +10,9 @@ gunicorn
 Jinja2
 pytest
 requests
-xmltodict
 certifi
+pyrsistent==0.16.1;python_version<"3.0"
+pyrsistent;python_version>"3.0"
+jsonschema
+protobuf
+pydantic
