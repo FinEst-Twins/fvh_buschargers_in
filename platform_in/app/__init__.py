@@ -60,11 +60,10 @@ def create_app(script_info=None):
             logging.info(f"post data goes like : {data[0:200]}")
             logging.debug(f"post data in json : {json.loads(data)}")
 
-
             # Asynchronously produce a message, the delivery report callback
             # will be triggered from poll() above, or flush() below, when the message has
             # been successfully delivered or failed permanently.
-            producer.send(topic="test.sputhan", key="", value=request.get_json())
+            producer.send(topic="finest.json.vehiclecharging.ocpp", key="", value=request.get_json())
 
             return success_response_object, success_code
 
