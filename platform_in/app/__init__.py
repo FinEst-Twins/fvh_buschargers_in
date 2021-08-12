@@ -31,7 +31,6 @@ def create_app(script_info=None):
     logging.basicConfig(level=app.config["LOG_LEVEL"])
     logging.getLogger().setLevel(app.config["LOG_LEVEL"])
 
-    cert_folder = app.config["CERT_FOLDER"]
     producer = KafkaProducer(
         bootstrap_servers=app.config["KAFKA_BROKERS"],
         security_protocol=app.config["SECURITY_PROTOCOL"],
@@ -63,7 +62,11 @@ def create_app(script_info=None):
             # Asynchronously produce a message, the delivery report callback
             # will be triggered from poll() above, or flush() below, when the message has
             # been successfully delivered or failed permanently.
-            producer.send(topic="finest.json.vehiclecharging.ocpp", key="", value=request.get_json())
+            producer.send(
+                topic="finest.json.vehiclecharging.ocpp",
+                key="",
+                value=request.get_json(),
+            )
 
             return success_response_object, success_code
 
