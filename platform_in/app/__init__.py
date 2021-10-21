@@ -8,10 +8,18 @@ from flask import jsonify, request
 import json
 import certifi
 from kafka import KafkaProducer
-
-
 from os import path
+import sentry_sdk
 
+from sentry_sdk.integrations.flask import FlaskIntegration
+
+if os.getenv("SENTRY_DSN"):
+    sentry_sdk.init(
+        dsn=os.getenv("SENTRY_DSN"),
+        integrations=[FlaskIntegration()]
+    )
+
+elastic_apm = ElasticAPM()
 
 success_response_object = {"status": "success"}
 success_code = 202
@@ -31,6 +39,9 @@ def create_app(script_info=None):
     logging.basicConfig(level=app.config["LOG_LEVEL"])
     logging.getLogger().setLevel(app.config["LOG_LEVEL"])
 
+    # set up extensions
+    elastic_apm.init_app(app)
+
     producer = KafkaProducer(
         bootstrap_servers=app.config["KAFKA_BROKERS"],
         security_protocol=app.config["SECURITY_PROTOCOL"],
@@ -49,6 +60,10 @@ def create_app(script_info=None):
     @app.route("/")
     def hello_world():
         return jsonify(health="ok")
+
+    @app.route('/debug-sentry')
+    def trigger_error():
+        division_by_zero = 1 / 0
 
     @app.route("/ocpp/v16/observations", methods=["POST"])
     def post_vehiclecharge_data():

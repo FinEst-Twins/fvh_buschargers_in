@@ -15,9 +15,6 @@ services:
     env_file:
       - app_config.env
     environment:
-      - FLASK_APP=app/__init__.py
-      - FLASK_ENV=production
-      - APP_SETTINGS=app.config.ProductionConfig
       - ca=chain.pem
       - cert=service.cert
       - key=service.key
