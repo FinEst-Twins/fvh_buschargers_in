@@ -40,7 +40,8 @@ def create_app(script_info=None):
     logging.getLogger().setLevel(app.config["LOG_LEVEL"])
 
     # set up extensions
-    elastic_apm.init_app(app)
+    if os.getenv("USE_ELASTIC"):
+        elastic_apm.init_app(app)
 
     producer = KafkaProducer(
         bootstrap_servers=app.config["KAFKA_BROKERS"],
@@ -89,6 +90,9 @@ def create_app(script_info=None):
             producer.flush()
             logging.error("post data error", e)
             # elastic_apm.capture_exception()
+            # capture elastic exception, if env USE_ELASTIC is set
+            if os.getenv("USE_ELASTIC"):
+                elastic_apm.capture_exception()
             return failure_response_object, failure_code
 
     return app
