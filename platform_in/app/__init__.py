@@ -92,7 +92,7 @@ def create_app(script_info=None):
                 packed_raw_data = data_pack(extract_data_from_flask_request(request))
                 rawdata_producer.send(
                     topic=raw_data_topic,
-                    key="",
+                    key=b"",
                     value=packed_raw_data,
                 )
                 logging.info(f"Raw data sent to : {raw_data_topic}")
