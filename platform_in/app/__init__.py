@@ -48,6 +48,14 @@ def create_app(script_info=None):
         key_serializer=lambda v: json.dumps(v).encode("ascii"),
     )
 
+    rawdata_producer = KafkaProducer(
+        bootstrap_servers=app.config["KAFKA_BROKERS"],
+        security_protocol=app.config["SECURITY_PROTOCOL"],
+        ssl_cafile=app.config["CA_FILE"],
+        ssl_certfile=app.config["CERT_FILE"],
+        ssl_keyfile=app.config["KEY_FILE"],
+    )
+
     # shell context for flask cli
     @app.shell_context_processor
     def ctx():
@@ -82,14 +90,14 @@ def create_app(script_info=None):
             try:
                 raw_data_topic = "finest.rawdata.vehiclecharging.ocpp"
                 packed_raw_data = data_pack(extract_data_from_flask_request(request))
-                producer.send(
+                rawdata_producer.send(
                     topic=raw_data_topic,
                     key="",
                     value=packed_raw_data,
                 )
                 logging.info(f"Raw data sent to : {raw_data_topic}")
             except Exception as e:
-                producer.flush()
+                rawdata_producer.flush()
                 logging.error("Send raw data error", e)
                 # capture elastic exception, if env USE_ELASTIC is set
                 if os.getenv("USE_ELASTIC"):
