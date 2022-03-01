@@ -14,7 +14,7 @@ COPY requirements.txt .
 ## install dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y apt-utils git \\
+    apt-get install -y apt-utils git \
     apt-get install -y netcat-openbsd gcc && \
     apt-get clean && \
     python3 -m pip install -r requirements.txt
