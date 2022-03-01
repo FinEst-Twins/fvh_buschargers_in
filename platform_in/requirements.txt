@@ -10,6 +10,7 @@ gunicorn
 Jinja2
 pytest
 requests
+msgpack
 certifi
 pyrsistent
 pydantic
