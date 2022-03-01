@@ -17,7 +17,7 @@ COPY requirements.txt .
 ## install dependencies
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y netcat-openbsd gcc && \
+    apt-get install -y apt-utils git netcat-openbsd gcc && \
     apt-get clean && \
     python3 -m pip install -r requirements.txt
 
@@ -33,7 +33,7 @@ COPY $ca /usr/local/share/ca-certificates/chain.crt
 RUN update-ca-certificates
 
 
- # add and run as non-root user
+# add and run as non-root user
 RUN addgroup --system appuser && adduser --system --no-create-home --group appuser
 RUN chown -R appuser:appuser /project
 

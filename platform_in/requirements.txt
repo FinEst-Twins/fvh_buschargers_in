@@ -1,4 +1,4 @@
-
+git+https://github.com/ForumViriumHelsinki/FVHIoT-python.git@v0.1.1#egg=fvhiot
 wheel
 kafka-python
 requests
@@ -10,6 +10,7 @@ gunicorn
 Jinja2
 pytest
 requests
+msgpack
 certifi
 pyrsistent
 pydantic
